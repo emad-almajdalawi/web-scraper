@@ -2,6 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_citations_needed_count(url):
+    '''
+    A function to count the number of citation-required paragraphs
+    input: url
+    outpus: number of citation-required paragraphs
+    '''
     counter = 0
     res = requests.get(url)
     soup = BeautifulSoup(res.content, "html.parser")
@@ -17,6 +22,11 @@ def get_citations_needed_count(url):
 
 
 def get_citations_needed_report(url):
+    '''
+    A function to generate a report including these paragraphs
+    input: url
+    outpus: number of citation-required paragraphs
+    '''
     output = 'The following paragraphs need citation \n \n'
     res = requests.get(url)
     soup = BeautifulSoup(res.content, "html.parser")
