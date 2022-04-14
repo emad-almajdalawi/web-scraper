@@ -10,12 +10,11 @@ def get_citations_needed_count(url):
     counter = 0
     res = requests.get(url)
     soup = BeautifulSoup(res.content, "html.parser")
-    # body = soup.find('div', id='bodyContent')
     parser_output = soup.find('div', class_='mw-parser-output')
-    paragraphs = parser_output.find_all('p')
+    paragraphs = parser_output.find_all('p') # or find_all('i') with different condetion
     for p in paragraphs:
         ankers = p.find_all("a", title="Wikipedia:Citation needed")
-        for _ in ankers:
+        for _ in ankers: # or counter = len(ankers)
             counter += 1
     return counter
 
@@ -31,7 +30,7 @@ def get_citations_needed_report(url):
     res = requests.get(url)
     soup = BeautifulSoup(res.content, "html.parser")
     parser_output = soup.find('div', class_='mw-parser-output')
-    paragraphs = parser_output.find_all('p')
+    paragraphs = parser_output.find_all('p')  # you can use paragraphs = parser_output.find_all("a", title="Wikipedia:Citation needed").parent  or .find_parent()
     for p in paragraphs:
         text = p.text
         count = text.count('[citation needed]')
